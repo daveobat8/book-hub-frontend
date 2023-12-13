@@ -12,17 +12,20 @@ import {
   InputLeftAddon,
   Stack,
 } from "@chakra-ui/react";
+import { BASE_URL } from "../utils";
 
 function AddCollection() {
   const initialData = {
     bookTitle: "",
     author: "",
+    image: "",
     genre: "",
     addedAt: "",
     price: "",
   };
 
   const [formData, setFormData] = useState(initialData);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -30,13 +33,45 @@ function AddCollection() {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(formData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    fetch(`${BASE_URL}/books`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //assume the operation was a success
+
+        //reset form data to initial data
+        setFormData(initialData);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Flex align={"center"} justify={"center"}>
       <Stack>
-        <Heading fontSize={"4xl"}>Add to Catalogue</Heading>
+        <Heading fontSize={"4xl"} py={2}>
+          Add to Catalogue
+        </Heading>
 
-        <Box rounded={"lg"} bg={"white"} p={8}>
+        <Box
+          as="form"
+          rounded={"lg"}
+          bg={"white"}
+          p={7}
+          onSubmit={handleSubmit}
+        >
           <Stack>
             <FormControl isRequired>
               <FormLabel>Book Title</FormLabel>
@@ -44,6 +79,7 @@ function AddCollection() {
                 name="bookTitle"
                 placeholder="e.g. Humpty Dumpty"
                 value={formData["bookTitle"]}
+                required
                 onChange={handleChange}
               />
             </FormControl>
@@ -53,6 +89,17 @@ function AddCollection() {
                 name="author"
                 placeholder="e.g. Lewis Caroll"
                 value={formData["author"]}
+                required
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Image</FormLabel>
+              <Input
+                name="image"
+                placeholder="https://img.freepik.com/free-photo/red-hardcover-book-front-cover_1101-833.jpg?w=360&t=st=1702493832~exp=1702494432~hmac=36026b25033edad4fa4ec1a89cc8cd6222f96638714e4234995d8bcb28272c98"
+                value={formData["image"]}
+                required
                 onChange={handleChange}
               />
             </FormControl>
@@ -62,6 +109,7 @@ function AddCollection() {
                 name="genre"
                 placeholder="e.g. Fiction"
                 value={formData["genre"]}
+                required
                 onChange={handleChange}
               />
             </FormControl>
@@ -72,6 +120,7 @@ function AddCollection() {
                 placeholder="Title"
                 type="date"
                 value={formData["addedAt"]}
+                required
                 onChange={handleChange}
               />
             </FormControl>
@@ -83,12 +132,20 @@ function AddCollection() {
                   name="price"
                   placeholder="100"
                   value={formData["price"]}
+                  required
                   onChange={handleChange}
                 />
               </InputGroup>
             </FormControl>
             <Stack pt={3}>
-              <Button>Submit</Button>
+              <Button
+                isLoading={isLoading}
+                loadingText="adding to catalogue"
+                type="submit"
+                color={"teal"}
+              >
+                Submit
+              </Button>
             </Stack>
           </Stack>
         </Box>

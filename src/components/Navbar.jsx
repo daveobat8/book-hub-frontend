@@ -7,7 +7,7 @@ import { AtSignIcon, TriangleDownIcon } from '@chakra-ui/icons';
 
 function Navbar() {
   return (
-    <Box px={5}>
+    <Box px={5} h={14}>
         <Flex justifyContent={'space-between'}>
             <HStack spacing={8} h={14}>
                 <TriangleDownIcon w={8} h={8} color={'burlywood'}/>
