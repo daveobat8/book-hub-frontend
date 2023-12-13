@@ -13,7 +13,8 @@ function Navbar() {
                 <TriangleDownIcon w={8} h={8} color={'burlywood'}/>
                 <HStack spacing={4}>
                 <Link to={'/'}>Home</Link>
-                <Link to={'/collection'}>Collection</Link>
+                <Link to={'/mycollection'}>Catalogue</Link>
+                <Link to={'/add-books'}>Add To List</Link>
                 </HStack>
             </HStack>
             <Flex py={4}>
