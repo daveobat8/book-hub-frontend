@@ -12,7 +12,7 @@ import {
   InputLeftAddon,
   Stack,
 } from "@chakra-ui/react";
-import { BASE_URL } from "../utils";
+import { BASE_URL } from '../utils';
 
 function AddCollection() {
   const initialData = {
@@ -56,6 +56,8 @@ function AddCollection() {
       .catch((err) => {
         console.log(err);
       });
+
+      console.log("SUBMITTED SUCCESSFULLY")
   };
 
   return (
@@ -68,7 +70,7 @@ function AddCollection() {
         <Box
           as="form"
           rounded={"lg"}
-          bg={"white"}
+          bg={""}
           p={7}
           onSubmit={handleSubmit}
         >
@@ -76,9 +78,9 @@ function AddCollection() {
             <FormControl isRequired>
               <FormLabel>Book Title</FormLabel>
               <Input
-                name="bookTitle"
+                name="title"
                 placeholder="e.g. Humpty Dumpty"
-                value={formData["bookTitle"]}
+                value={formData["title"]}
                 required
                 onChange={handleChange}
               />
@@ -116,10 +118,20 @@ function AddCollection() {
             <FormControl isRequired>
               <FormLabel>Added At</FormLabel>
               <Input
-                name="addedAt"
+                name="added_at"
                 placeholder="Title"
                 type="date"
-                value={formData["addedAt"]}
+                value={formData["added_at"]}
+                required
+                onChange={handleChange}
+              />
+              </FormControl>
+               <FormControl isRequired>
+              <FormLabel>Description</FormLabel>
+              <Input
+                name="description"
+                placeholder="description"
+                value={formData["description"]}
                 required
                 onChange={handleChange}
               />
