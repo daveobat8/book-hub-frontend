@@ -1,9 +1,17 @@
-import React from 'react'
+import { SimpleGrid } from "@chakra-ui/react";
+import React from "react";
+import Catalogueitem from "../components/Catalogueitem";
 
-function Collection() {
+function Collection({ catalogues }) {
   return (
-    <div>Collection</div>
-  )
+    <div>
+      <SimpleGrid columns={6} spacing={0}>
+        {catalogues.map((catalogue) => (
+          <Catalogueitem key={catalogue.id} {...catalogue} />
+        ))}
+      </SimpleGrid>
+    </div>
+  );
 }
 
-export default Collection
+export default Collection;

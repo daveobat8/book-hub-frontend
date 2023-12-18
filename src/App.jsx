@@ -20,13 +20,23 @@ function App() {
       .catch((err) => console.log(err));
   });
 
+  const [catalogues, setCatalogues] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/catalogue`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((catalogues) => setCatalogues(catalogues))
+      .catch((err) => console.log(err));
+  },);
   return (
     <div>
       <Navbar />
-      <Box bg={"white"} style={{ height: "100%" }}>
+      <Box bg={"#fefae0"} style={{ height: "100%" }}>
         <Routes>
           <Route path="/" element={<Home books={books} />}></Route>
-          <Route path="collection" element={<Collection />}></Route>
+          <Route path="collection" element={<Collection catalogues={catalogues} />}></Route>
           <Route path="add-books" element={<AddCollection />}></Route>
         </Routes>
       </Box>

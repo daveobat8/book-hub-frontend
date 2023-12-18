@@ -23,6 +23,8 @@ import React from "react";
 function Book({ title, description, author, image, genre, price, added_at }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  
+
   return (
     <>
       <Box p={5}>
@@ -31,14 +33,14 @@ function Book({ title, description, author, image, genre, price, added_at }) {
             <Image boxSize="270px" src={image} />
           </CardBody>
           <CardHeader p={2}>
-            <HStack>
+            
               <Heading size="s" textTransform="uppercase" color={"black"}>
                 {title}
               </Heading>
-              <Tag variant="subtle" colorScheme="cyan">
+              <Tag variant="subtle" bg="#fcbf49">
                 <TagLabel>{genre}</TagLabel>
               </Tag>
-            </HStack>
+            
           </CardHeader>
           <Button  bg='white' onClick={onOpen}>More Info</Button>
         </Card>
@@ -65,7 +67,9 @@ function Book({ title, description, author, image, genre, price, added_at }) {
             <Tag mt="1" variant="subtle" bg="#882D17" p={2}>
               <TagLabel color='#E5AA70'>Price: Ksh{price}</TagLabel>
             </Tag>
+            <Button bg='#882D17' color='#E5AA70' ml={8} p={1}>Add To Catalogue</Button>
           </ModalBody>
+          
         </ModalContent>
       </Modal>
     </>
